@@ -65,9 +65,10 @@ int main()
 	char prompt[] = "Enter the card_name: ";
 	int count = 0;
 	while (card_name[0] != 'X') {
-		get_card_name(prompt, card_name);
 		int val = 0;
-		int error = get_value(card_name, &val);
+		int error;
+		get_card_name(prompt, card_name);
+		error = get_value(card_name, &val);
 		if (error) {
 			continue;
 		}

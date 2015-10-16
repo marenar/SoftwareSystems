@@ -49,19 +49,50 @@ int pop(Node **head) {
 
 // Add a new element to the beginning of the list.
 void push(Node **head, int val) {
-    // FILL THIS IN!
-}
+    Node *new_node = make_node(val, NULL);
+    new_node->next = *head;
+    *head = new_node;
+} 
 
 // Remove the first element with the given value; return the number
 // of nodes removed.
 int remove_by_value(Node **head, int val) {
-    // FILL THIS IN!
+    Node *current = *head;
+    Node *prev = NULL;
+    while (current != NULL) {
+        if (current->val == val) {
+            // check if node is beginning of list
+            if (prev == NULL) {
+                *head = current->next;
+            } 
+            // check if node is end of list
+            else if (current->next == NULL) {
+                prev->next = NULL;
+            }
+            // node is middle of list
+            else {
+                prev->next = current->next;
+            }
+            free(current);
+            return 1;
+        }
+        prev = current;
+        current = current->next;
+    }
     return 0;
 }
 
 // Reverse the elements of the list without allocating new nodes.
 void reverse(Node **head) {
-    // FILL THIS IN!
+    Node *current = *head;
+    Node *prev = NULL;
+    while (current != NULL) {
+        Node *next = current->next;
+        current->next = prev;
+        prev = current; 
+        current = next;
+    }
+    *head = prev;
 }
 
 
@@ -74,8 +105,10 @@ int main() {
     int retval = pop(&test_list);
     push(&test_list, retval+10);
 
-    remove_by_value(&test_list, 3);
-    remove_by_value(&test_list, 7);
+    //remove_by_value(&test_list, 11);
+    //remove_by_value(&test_list, 2);
+    //remove_by_value(&test_list, 4);
+    //remove_by_value(&test_list, 7);
 
     reverse(&test_list);
 
